@@ -22,8 +22,7 @@ import java.util.Set;
 @PluginDescriptor(
 		name = "Cannon Damage",
 		description = "Tracks the amount of damage done from the cannon and the number of cannonballs used.",
-		tags = {"cannon", "damage", "tracker"},
-		enabledByDefault = false
+		tags = {"cannon", "damage", "tracker"}
 )
 @Slf4j
 public class CannonDamagePlugin extends Plugin {
@@ -94,9 +93,6 @@ public class CannonDamagePlugin extends Plugin {
 
 			// Record the player's current Ranged XP as the starting point
 			cannonStartRangedXp = client.getSkillExperience(Skill.RANGED);
-
-			System.out.println("[Cannon Damage Plugin] Cannon placed. Starting Ranged XP: " + cannonStartRangedXp);
-			log.debug("Cannon placed. Starting Ranged XP: {}", cannonStartRangedXp);
 		}
 	}
 
@@ -108,9 +104,6 @@ public class CannonDamagePlugin extends Plugin {
 		if (CANNON_GAME_OBJECT_IDS.contains(despawnedObject.getId())) {
 			cannonIsPlaced = false;
 			hideOverlayTime = System.currentTimeMillis() + OVERLAY_DISPLAY_DURATION;
-
-			System.out.println("[Cannon Damage Plugin] Cannon removed. Stopping XP tracking.");
-			log.debug("Cannon removed. Stopping XP tracking.");
 		}
 	}
 
@@ -122,8 +115,6 @@ public class CannonDamagePlugin extends Plugin {
 		if (CANNONBALL_PROJECTILE_IDS.contains(projectile.getId()) && !trackedProjectiles.contains(projectile)) {
 			trackedProjectiles.add(projectile); // Add the projectile to the tracked set
 			cannonballsUsed++; // Increment cannonball count
-			System.out.println("[Cannon Damage Plugin] Cannonball fired (ID: " + projectile.getId() + "). Total cannonballs used: " + cannonballsUsed);
-			log.debug("Cannonball fired (ID: {}). Total cannonballs used: {}", projectile.getId(), cannonballsUsed);
 		}
 	}
 
@@ -143,8 +134,6 @@ public class CannonDamagePlugin extends Plugin {
 			totalDamage = damageDealt; // Update the total damage based on XP tracked
 
 			// Print updates to the console
-			System.out.println("[Cannon Damage Plugin] Cannon damage dealt this session: " + totalDamage);
-			log.debug("Cannon damage dealt this session: {}", totalDamage);
 		}
 	}
 
