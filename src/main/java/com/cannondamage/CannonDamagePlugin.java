@@ -16,7 +16,8 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
 
 import javax.inject.Inject;
-import java.util.HashSet;
+import java.util.Queue;
+import java.util.LinkedList;
 import java.util.Set;
 
 @PluginDescriptor(
@@ -46,7 +47,7 @@ public class CannonDamagePlugin extends Plugin {
 	private static final long OVERLAY_DISPLAY_DURATION = 60_000; // Duration to keep showing overlay after cannon is removed
 
 	// Cannon-related state
-	private final Set<Projectile> trackedProjectiles = new HashSet<>();
+	private final Queue<Projectile> trackedProjectiles = new LinkedList<>();
 	private boolean cannonIsPlaced = false;
 
 	// Damage and usage tracking
@@ -109,13 +110,18 @@ public class CannonDamagePlugin extends Plugin {
 
 	@Subscribe
 	public void onProjectileMoved(ProjectileMoved event) {
-		Projectile projectile = event.getProjectile();
-
-		// Track only cannon projectiles with valid IDs (53 or 2018)
-		if (CANNONBALL_PROJECTILE_IDS.contains(projectile.getId()) && !trackedProjectiles.contains(projectile)) {
-			trackedProjectiles.add(projectile); // Add the projectile to the tracked set
-			cannonballsUsed++; // Increment cannonball count
-		}
+	    Projectile projectile = event.getProjectile();
+	
+	    // Only track valid cannon projectiles
+	    if (CANNONBALL_PROJECTILE_IDS.contains(projectile.getId()) && !trackedProjectiles.contains(projectile)) {
+	        // If we already have 5 projectiles, remove the oldest one
+	        if (trackedProjectiles.size() >= 5) {
+	            trackedProjectiles.poll(); // Removes and returns the head (oldest projectile)
+	        }
+	
+	        trackedProjectiles.add(projectile); // Add the new projectile
+	        cannonballsUsed++;
+	    }
 	}
 
 	@Subscribe
