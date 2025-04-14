@@ -1,6 +1,7 @@
 # Cannon Damage
-This plugin is specifically made to get correct cannonball statistics for use when calculating untrimmed slayer.
+This plugin is specifically made for gathering cannonball statistics for use when calculating untrimmed slayer.
 
-The plugin will start when it detects the placement of a cannon, including the shattered relics ornament kit cannon, and will stop once the cannon is picked up. The overlay will remain on screen for 60 seconds after the cannon is picked up to allow time for a screenshot or the user to write down the numbers.
+Once enabled, the plugin will begin tracking the damage output of cannonballs, the amount of cannonballs fired, and then average the damage per cannonball. In order to reset the tracking, simply toggle the plugin off and then back on whenever you are ready to track again.
 
-ONLY damage from the cannon is supposed tracked, though if you are ranging as your main attack style when using the cannon it will count that xp as well. This is because you should NOT be ranging when going for untrimmed slayer WHILE using a cannon, magic will suffice.
+Although ONLY damage from the cannon is supposed to be tracked, there is a possibility that if you are using ranged as your attack style when using the cannon, itll count your damage if fired on the same tick as the cannonball.
+  This should not be an issue however, because when going for untrimmed slayer there are no tasks where you would be ranging and using a cannon.
